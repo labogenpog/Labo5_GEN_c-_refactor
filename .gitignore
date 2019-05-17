@@ -33,3 +33,10 @@
 
 # CMake
 cmake-build-*/
+
+# idea
+.idea/**
+.idea/*.xml
+
+.idea/Labo5_GEN_c-_refactor.iml
+.idea/misc.xml
