@@ -3,4 +3,12 @@ project(Labo5_C___refactor)
 
 set(CMAKE_CXX_STANDARD 17)
 
-add_executable(Labo5_C___refactor main.cpp)
+include_directories(.)
+
+add_executable(Labo5_C___refactor
+        src/Customer.cpp
+        src/Customer.h
+        src/main.cpp
+        src/Movie.cpp
+        src/Movie.h
+        src/Rental.h)
