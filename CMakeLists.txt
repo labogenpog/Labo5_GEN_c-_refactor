@@ -1,22 +1,44 @@
-# cmake_minimum_required(VERSION <specify CMake version here>)
+cmake_minimum_required(VERSION 3.14)
+project(Labo5_GEN_c__refactor)
 
-cmake_minimum_required(VERSION 3.3)
+set(CMAKE_CXX_STANDARD 14)
 
-project(Labo5_C___refactor)
+include_directories(src)
+include(CTest)
 
-set(CMAKE_CXX_STANDARD 17)
+if (CMAKE_VERSION VERSION_LESS 3.2)
+    set(UPDATE_DISCONNECTED_IF_AVAILABLE "")
+else()
+    set(UPDATE_DISCONNECTED_IF_AVAILABLE "UPDATE_DISCONNECTED 1")
+endif()
 
-include_directories(.)
+include(DownloadProject.cmake)
+download_project(PROJ                googletest
+        GIT_REPOSITORY      https://github.com/google/googletest.git
+        GIT_TAG             master
+        ${UPDATE_DISCONNECTED_IF_AVAILABLE}
+        )
 
-add_subdirectory(src)
-add_subdirectory(test)
+# Prevent GoogleTest from overriding our compiler/linker options
+# when building with Visual Studio
+set(gtest_force_shared_crt ON CACHE BOOL "" FORCE)
 
-add_executable(Labo5_C___refactor
+add_subdirectory(${googletest_SOURCE_DIR} ${googletest_BINARY_DIR})
+
+# When using CMake 2.8.11 or later, header path dependencies
+# are automatically added to the gtest and gmock targets.
+# For earlier CMake versions, we have to explicitly add the
+# required directories to the header search path ourselves.
+if (CMAKE_VERSION VERSION_LESS 2.8.11)
+    include_directories("${gtest_SOURCE_DIR}/include"
+            "${gmock_SOURCE_DIR}/include")
+endif()
+add_executable(Labo5_GEN_c__refactor
         src/Customer.cpp
         src/Customer.h
         src/main.cpp
         src/Movie.cpp
         src/Movie.h
-        src/Rental.h)
-
-#add_executable(runUnitTests gtest.cpp ${test_SRCS})
+        src/Rental.h
+        test/TestCustomer.cpp)
+target_link_libraries(Labo5_GEN_c__refactor gtest gmock_main)
