@@ -5,7 +5,7 @@
 #ifndef LABO5_C___REFACTOR_MOCK_MOVIE_H
 #define LABO5_C___REFACTOR_MOCK_MOVIE_H
 
-#include <src/Movie.h>
+#include <Movie.h>
 #include "gmock/gmock.h"  // Brings in Google Mock.
 
 

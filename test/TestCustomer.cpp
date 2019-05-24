@@ -1,5 +1,6 @@
-#include <src/Customer.h>
-#include <src/testing/mock_Movie.h>
+
+#include <Customer.h>
+#include <testing/mock_Movie.h>
 #include "gtest/gtest.h"
 
 using ::testing::AtLeast;  // # 1 Mock
@@ -41,6 +42,6 @@ TEST(TestCustomer, testMockMovie) {
     ASSERT_EQ(customer.getName(),"Isaia");
     customer.addRental( rental);
 
-    //EXPECT_TRUE(customer.statement());          
+    //EXPECT_TRUE(customer.statement());
 }                                             // #5 Quand l'objet est détruit, vérifie si tous a été satisfaits.
 
