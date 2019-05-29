@@ -8,13 +8,14 @@
 #include <Movie.h>
 #include "gmock/gmock.h"  // Brings in Google Mock.
 
-
+// Hérite de la classe
 class MockMovie : public Movie {
 public:
 
     MockMovie( const std::string& title, int priceCode = REGULAR) : Movie(title, priceCode) {}
-
+    // Si c'est constant - 0 param
     MOCK_CONST_METHOD0(getPriceCode, int() );
+    // pas const - 1 param
     MOCK_METHOD1(setPriceCode, void ( int arg ));
     MOCK_CONST_METHOD0(getTitle, std::string ());
 };
