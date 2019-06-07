@@ -2,35 +2,33 @@
 #ifndef MOVIE_H
 #define MOVIE_H
 #include <string>
+#include "PriceCode.h"
 
 class Movie {
 public:
-    static const int CHILDRENS   = 2;
-    static const int REGULAR     = 0;
-    static const int NEW_RELEASE = 1;
 
-    Movie( const std::string& title, int priceCode = REGULAR );
+    Movie( const std::string& title, PriceCode* priceCode = new PriceRegular()  );
 
-    int getPriceCode() const;
-    void setPriceCode( int arg );
+    PriceCode* getPriceCode() const;
+    void setPriceCode( PriceCode* priceCode );
     std::string getTitle() const;
 
 private:
     std::string _title;
-    int _priceCode;
+    PriceCode* _priceCode;
 };
 
 inline Movie::
-Movie( const std::string& title, int priceCode )
+Movie( const std::string& title, PriceCode* priceCode )
         : _title( title )
         , _priceCode( priceCode )
 {}
 
-inline int Movie::
+inline PriceCode* Movie::
 getPriceCode() const { return _priceCode; }
 
 inline void Movie::
-setPriceCode( int arg ) { _priceCode = arg; }
+setPriceCode( PriceCode* priceCode ) { _priceCode = priceCode; }
 
 inline std::string Movie::
 getTitle() const { return _title; }

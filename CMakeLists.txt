@@ -40,5 +40,6 @@ add_executable(Labo5_GEN_c__refactor
         src/Movie.cpp
         src/Movie.h
         src/Rental.h
-        test/TestCustomer.cpp)
+        test/TestCustomer.cpp
+        src/PriceCode.h)
 target_link_libraries(Labo5_GEN_c__refactor gtest gmock_main)

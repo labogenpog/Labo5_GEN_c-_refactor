@@ -12,7 +12,7 @@
 class MockMovie : public Movie {
 public:
 
-    MockMovie( const std::string& title, int priceCode = REGULAR) : Movie(title, priceCode) {}
+    // MockMovie( const std::string& title, int priceCode = REGULAR) : Movie(title, priceCode) {}
     // Si c'est constant - 0 param
     MOCK_CONST_METHOD0(getPriceCode, int() );
     // pas const - 1 param
