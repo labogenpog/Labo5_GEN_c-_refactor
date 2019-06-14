@@ -12,5 +12,6 @@ int main() {
 
     std::cout << customer.statement() << std::endl;
 
+    ::testing::InitGoogleTest();
     return RUN_ALL_TESTS();
 }
