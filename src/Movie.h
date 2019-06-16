@@ -7,22 +7,16 @@
 class Movie {
 public:
 
-    Movie( const std::string& title, PriceCode* priceCode = new PriceRegular()  );
+    Movie( const std::string& title, PriceCode* priceCode = new PriceRegular());
 
-    PriceCode* getPriceCode() const;
-    void setPriceCode( PriceCode* priceCode );
-    std::string getTitle() const;
+    virtual PriceCode* getPriceCode() const;
+    virtual void setPriceCode( PriceCode* priceCode );
+    virtual std::string getTitle() const;
 
 private:
     std::string _title;
     PriceCode* _priceCode;
 };
-
-inline Movie::
-Movie( const std::string& title, PriceCode* priceCode )
-        : _title( title )
-        , _priceCode( priceCode )
-{}
 
 inline PriceCode* Movie::
 getPriceCode() const { return _priceCode; }
@@ -32,5 +26,12 @@ setPriceCode( PriceCode* priceCode ) { _priceCode = priceCode; }
 
 inline std::string Movie::
 getTitle() const { return _title; }
+
+inline Movie::
+Movie( const std::string& title, PriceCode* priceCode )
+        : _title( title )
+        , _priceCode( priceCode )
+{}
+
 
 #endif // MOVIE_H

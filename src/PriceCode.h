@@ -12,7 +12,7 @@ public:
 
     PriceCode( int priceCode );
 
-    virtual double getAmount(int daysRental) const = 0;
+    virtual double getAmount(int daysRental) const;
     int getPriceCode() const;
     void setPriceCode(int priceCode);
 
@@ -31,6 +31,14 @@ getPriceCode() const { return _priceCode; }
 
 inline void PriceCode::
 setPriceCode(int priceCode) { _priceCode = priceCode; }
+
+inline double PriceCode::
+getAmount(int daysRental) const {
+    double thisAmount = 2;
+    if ( daysRental > 2 )
+        thisAmount += ( daysRental - 2 ) * 1.5 ;
+    return thisAmount;
+}
 
 // Heritage de PriceCode avec CHILDRENS
 class PriceChildrens : public PriceCode{

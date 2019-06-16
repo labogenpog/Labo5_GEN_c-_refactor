@@ -1,7 +1,9 @@
 
 #include <Customer.h>
-#include <testing/mock_Movie.h>
+#include "testing/mock_Movie.h"
 #include "gtest/gtest.h"
+#include <memory>
+
 
 using ::testing::AtLeast;  // # 1 Mock
 
@@ -79,39 +81,24 @@ TEST(TestCustomer, testStatmentLimitsINT_MIN) {
 
 }
 
-// Devrait être faux ! getTitle devrait être appelé 1 fois et getPriceCode 2 fois
 
-// C'est N'IMP!!!!!!!!!!!!!
 TEST(TestCustomer, testMockMovie) {
-    MockMovie movie();                          // #2 Crée l'objet mock
+    std::unique_ptr <MockMovie> movie ( new MockMovie("film1"));
+    PriceCode *pc = new PriceRegular();
+    EXPECT_CALL(*movie, getPriceCode()).WillRepeatedly(testing::Return(pc));
+    EXPECT_CALL(*movie, getTitle()).WillRepeatedly(testing::Return("Film Lambda"));
 
-    // Ajouter virtuel aux fonction de Movie
-    // Movie* movieq = &movie; (on passe deja par des adresses
-    // Classe abstraite ! methode pas définie virtual
-    // unique_ptr<MockMovie> movie ( new MockMovie());
-    // Ne compile pas...
-    // EXPECT_CALL(*movie, getPriceCode()).WillRepeatedly(ReturnRef("film1"));  movie.get()
+    ASSERT_EQ(movie->getTitle(),"Film Lambda");
+    ASSERT_EQ(movie->getPriceCode(), pc);
 
-//    EXPECT_CALL(movie, getTitle())              // #3 Préviens quelle méthode doit être appelé combien de fois
-//            .Times(AtLeast(0));
-//    EXPECT_CALL(movie, getPriceCode())
-//            .Times(AtLeast(0));
-//
-//
-//    ASSERT_EQ(movie.getTitle(),"");
-//    ASSERT_EQ(movie.getPriceCode(),Movie::REGULAR);
-//
-//
-//    Rental rental(movie,7);                   // #4 Utilise l'objet
-//
-//
-//    Customer customer("Isaia");
-//    ASSERT_EQ(customer.getName(),"Isaia");
-//    customer.addRental( rental);
-//
-//
-//
-//    ASSERT_EQ(customer.statement(), "Rental Record for Isaia\n\tfilm1\t9.5\nAmount owed is 9.5\nYou earned 1 frequent renter points");
-//    //EXPECT_TRUE();
-}                                             // #5 Quand l'objet est détruit, vérifie si tous a été satisfaits.
+    Rental rental(*movie, 7);
+
+    Customer customer("Isaia");
+    ASSERT_EQ(customer.getName(),"Isaia");
+    customer.addRental(rental);
+
+
+
+    ASSERT_EQ(customer.statement(), "Rental Record for Isaia\n\tfilm1\t9.5\nAmount owed is 9.5\nYou earned 1 frequent renter points");
+}
 
